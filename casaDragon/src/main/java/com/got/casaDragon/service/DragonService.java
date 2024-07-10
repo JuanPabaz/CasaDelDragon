@@ -5,6 +5,8 @@ import com.got.casaDragon.repositories.DragonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DragonService {
 
@@ -14,6 +16,14 @@ public class DragonService {
     public Dragon agregarDragon(Dragon dragon) throws Exception{
         try {
             return dragonRepository.save(dragon);
+        }catch (Exception error){
+            throw new Exception(error.getMessage());
+        }
+    }
+
+    public List<Dragon> buscarTodosDragones() throws Exception{
+        try {
+            return dragonRepository.findAll();
         }catch (Exception error){
             throw new Exception(error.getMessage());
         }
