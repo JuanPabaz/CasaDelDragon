@@ -1,9 +1,15 @@
 package com.got.casaDragon.models;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "jinete")
 public class Jinete {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idJinete;
     private String nombreJinete;
     private Integer edadJinete;
