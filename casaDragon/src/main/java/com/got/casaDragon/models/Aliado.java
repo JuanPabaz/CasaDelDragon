@@ -1,7 +1,13 @@
 package com.got.casaDragon.models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "aliado")
 public class Aliado {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idAliado;
     private String nombreAliado;
     private String ubicacion;
