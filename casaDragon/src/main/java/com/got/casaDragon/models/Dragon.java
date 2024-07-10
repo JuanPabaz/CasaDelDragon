@@ -9,9 +9,17 @@ public class Dragon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idDragon;
+
+    @Column(name = "nombre_dragon")
     private String nombreDragon;
+
+    @Column(name = "edad")
     private Integer edad;
+
+    @Column(name = "altura")
     private Double altura;
+
+    @Column(name = "numero_victorias")
     private Integer numeroVictorias;
 
     public Dragon() {
