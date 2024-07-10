@@ -9,8 +9,14 @@ public class Aliado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idAliado;
+
+    @Column(name = "nombre_aliado")
     private String nombreAliado;
+
+    @Column(name = "ubicacion")
     private String ubicacion;
+
+    @Column(name = "aporte")
     private Double aporte;
 
     public Aliado() {
