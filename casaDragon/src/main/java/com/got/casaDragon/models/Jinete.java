@@ -11,8 +11,14 @@ public class Jinete {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idJinete;
+
+    @Column(name = "nombre_jinete")
     private String nombreJinete;
+
+    @Column(name = "edad_jinete")
     private Integer edadJinete;
+
+    @Column(name = "fecha_montura")
     private LocalDate fechaMontura;
 
     public Jinete() {
