@@ -46,5 +46,37 @@ public class AliadoService {
         }
     }
 
+    public Aliado editarAliado(Integer id,Aliado aliadoNuevo) throws Exception{
+        try {
+            Optional<Aliado> aliadoOptional = aliadoRepository.findById(id);
+            if (aliadoOptional.isPresent()){
+                Aliado aliado = aliadoOptional.get();
+                aliado.setNombreAliado(aliado.getNombreAliado());
+                aliado.setAporte(aliado.getAporte());
+                aliado.setUbicacion(aliado.getUbicacion());
+                return aliadoRepository.save(aliado);
+            }else {
+                throw new Exception(MensajeServicios.ALIADO_NO_ENCONTRADO.getMensaje());
+            }
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public boolean eliminarAliado(Integer id) throws Exception{
+        try {
+            if (aliadoRepository.existsById(id)){
+                aliadoRepository.deleteById(id);
+                return true;
+            }else {
+                throw new Exception(MensajeServicios.ALIADO_NO_ENCONTRADO.getMensaje());
+            }
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+
+
 
 }
