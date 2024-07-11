@@ -45,4 +45,34 @@ public class JineteService {
         }
     }
 
+    public Jinete editarJinete(Integer id,Jinete jineteNuevo) throws Exception{
+        try {
+            Optional<Jinete> jineteOptional = jineteRepository.findById(id);
+            if (jineteOptional.isPresent()){
+                Jinete jinete = jineteOptional.get();
+                jinete.setEdadJinete(jinete.getEdadJinete());
+                jinete.setFechaMontura(jinete.getFechaMontura());
+                jinete.setNombreJinete(jinete.getNombreJinete());
+                return jineteRepository.save(jinete);
+            }else {
+                throw new Exception(MensajeServicios.JINETE_NO_ENCONTRADO.getMensaje());
+            }
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public boolean eliminarJinete(Integer id) throws Exception{
+        try {
+            if (jineteRepository.existsById(id)){
+                jineteRepository.deleteById(id);
+                return true;
+            }else {
+                throw new Exception(MensajeServicios.JINETE_NO_ENCONTRADO.getMensaje());
+            }
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
 }
