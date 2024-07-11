@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DragonService {
@@ -26,6 +27,19 @@ public class DragonService {
             return dragonRepository.findAll();
         }catch (Exception error){
             throw new Exception(error.getMessage());
+        }
+    }
+
+    public Dragon buscarDragonPorId(Integer id) throws Exception{
+        try {
+            Optional<Dragon> dragonOptional = dragonRepository.findById(id);
+            if (dragonOptional.isPresent()){
+                return dragonOptional.get();
+            }else {
+                throw new Exception("Dragon no encontrado");
+            }
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
         }
     }
 
