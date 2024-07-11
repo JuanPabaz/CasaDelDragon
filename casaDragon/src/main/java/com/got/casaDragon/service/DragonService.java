@@ -1,5 +1,6 @@
 package com.got.casaDragon.service;
 
+import com.got.casaDragon.helpers.MensajeServicios;
 import com.got.casaDragon.models.Dragon;
 import com.got.casaDragon.repositories.DragonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class DragonService {
             if (dragonOptional.isPresent()){
                 return dragonOptional.get();
             }else {
-                throw new Exception("Dragon no encontrado");
+                throw new Exception(MensajeServicios.DRAGON_NO_ENCONTRADO.getMensaje());
             }
         }catch (Exception e){
             throw new Exception(e.getMessage());
