@@ -44,4 +44,34 @@ public class DragonService {
         }
     }
 
+    public Dragon editarDragon(Integer id,Dragon dragonNuevo) throws Exception{
+        try {
+            Optional<Dragon> dragonOptional = dragonRepository.findById(id);
+            if (dragonOptional.isPresent()){
+                Dragon dragon = dragonOptional.get();
+                dragon.setNombreDragon(dragonNuevo.getNombreDragon());
+                dragon.setAltura(dragonNuevo.getAltura());
+                dragon.setEdad(dragonNuevo.getEdad());
+                dragon.setNumeroVictorias(dragonNuevo.getNumeroVictorias());
+                return dragonRepository.save(dragon);
+            }else {
+                throw new Exception(MensajeServicios.DRAGON_NO_ENCONTRADO.getMensaje());
+            }
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public boolean eliminarDragon(Integer id) throws Exception{
+        try {
+            if (dragonRepository.existsById(id)){
+                dragonRepository.deleteById(id);
+                return true;
+            }else {
+                throw new Exception(MensajeServicios.DRAGON_NO_ENCONTRADO.getMensaje());
+            }
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
 }
