@@ -21,7 +21,11 @@ public class DragonController {
 
     @GetMapping("/{idDragon}")
     public ResponseEntity<?> buscarDragon(@PathVariable(name = "idDragon") Integer id) throws Exception{
-        return ResponseEntity.ok(dragonService.buscarDragonPorId(id));
+        try {
+            return ResponseEntity.status(HttpStatus.FOUND).body(dragonService.buscarDragonPorId(id));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @PostMapping()
@@ -35,12 +39,20 @@ public class DragonController {
 
     @PutMapping("/{idJinete}")
     public ResponseEntity<?> editarDragon(@PathVariable(name = "idDragon") Integer id,@RequestBody Dragon nuevoDragon) throws Exception{
-        return ResponseEntity.ok(dragonService.editarDragon(id,nuevoDragon));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(dragonService.editarDragon(id,nuevoDragon));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{idJinete}")
     public ResponseEntity<?> eliminarDragon(@PathVariable(name = "idDragon") Integer id) throws Exception{
-        return ResponseEntity.ok(dragonService.eliminarDragon(id));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(dragonService.eliminarDragon(id));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
 }
