@@ -15,7 +15,7 @@ public class AliadoController {
     private AliadoService aliadoService;
 
     @GetMapping()
-    public ResponseEntity<?> encontrarTodosAliado() throws Exception{
+    public ResponseEntity<?> encontrarTodosAliado(){
         try{
             return ResponseEntity.status(HttpStatus.FOUND).body(aliadoService.buscarTodosAliados());
         }catch (Exception e){
@@ -24,7 +24,7 @@ public class AliadoController {
     }
 
     @GetMapping("/{idAliado}")
-    public ResponseEntity<?> buscarAliado(@PathVariable(name = "idAliado") Integer id) throws Exception{
+    public ResponseEntity<?> buscarAliado(@PathVariable(name = "idAliado") Integer id){
         try{
             return ResponseEntity.status(HttpStatus.FOUND).body(aliadoService.buscarAliadoPorId(id));
         }catch (Exception e){
@@ -33,7 +33,7 @@ public class AliadoController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> guardarAliado(@RequestBody Aliado aliado) throws Exception{
+    public ResponseEntity<?> guardarAliado(@RequestBody Aliado aliado){
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(aliadoService.guardarAliado(aliado));
         }catch (Exception e){
@@ -42,7 +42,7 @@ public class AliadoController {
     }
 
     @PutMapping("/{idAliado}")
-    public ResponseEntity<?> editarAliado(@PathVariable(name = "idAliado") Integer id,@RequestBody Aliado nuevoAliado) throws Exception{
+    public ResponseEntity<?> editarAliado(@PathVariable(name = "idAliado") Integer id,@RequestBody Aliado nuevoAliado){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(aliadoService.editarAliado(id,nuevoAliado));
         }catch (Exception e){
@@ -51,7 +51,7 @@ public class AliadoController {
     }
 
     @DeleteMapping("/{idAliado}")
-    public ResponseEntity<?> eliminarAliado(@PathVariable(name = "idAliado") Integer id) throws Exception{
+    public ResponseEntity<?> eliminarAliado(@PathVariable(name = "idAliado") Integer id){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(aliadoService.eliminarAliado(id));
         }catch (Exception e){
