@@ -15,12 +15,16 @@ public class DragonController {
     private DragonService dragonService;
 
     @GetMapping()
-    public ResponseEntity<?> encontrarTodosDragon() throws Exception{
-        return ResponseEntity.ok(dragonService.buscarTodosDragones());
+    public ResponseEntity<?> encontrarTodosDragon(){
+        try {
+            return ResponseEntity.ok(dragonService.buscarTodosDragones());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @GetMapping("/{idDragon}")
-    public ResponseEntity<?> buscarDragon(@PathVariable(name = "idDragon") Integer id) throws Exception{
+    public ResponseEntity<?> buscarDragon(@PathVariable(name = "idDragon") Integer id){
         try {
             return ResponseEntity.status(HttpStatus.FOUND).body(dragonService.buscarDragonPorId(id));
         }catch (Exception e){
@@ -29,7 +33,7 @@ public class DragonController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> guardarDragon(@RequestBody Dragon dragon) throws Exception{
+    public ResponseEntity<?> guardarDragon(@RequestBody Dragon dragon){
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(dragonService.agregarDragon(dragon));
         }catch (Exception e){
@@ -37,8 +41,8 @@ public class DragonController {
         }
     }
 
-    @PutMapping("/{idJinete}")
-    public ResponseEntity<?> editarDragon(@PathVariable(name = "idDragon") Integer id,@RequestBody Dragon nuevoDragon) throws Exception{
+    @PutMapping("/{idDragon}")
+    public ResponseEntity<?> editarDragon(@PathVariable(name = "idDragon") Integer id,@RequestBody Dragon nuevoDragon){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(dragonService.editarDragon(id,nuevoDragon));
         }catch (Exception e){
@@ -46,12 +50,12 @@ public class DragonController {
         }
     }
 
-    @DeleteMapping("/{idJinete}")
-    public ResponseEntity<?> eliminarDragon(@PathVariable(name = "idDragon") Integer id) throws Exception{
+    @DeleteMapping("/{idDragon}")
+    public ResponseEntity<?> eliminarDragon(@PathVariable(name = "idDragon") Integer id){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(dragonService.eliminarDragon(id));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
