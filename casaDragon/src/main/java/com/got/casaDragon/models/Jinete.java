@@ -1,15 +1,24 @@
 package com.got.casaDragon.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "jinete")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Jinete {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_jinete")
     private Integer idJinete;
 
     @Column(name = "nombre_jinete")
@@ -21,45 +30,12 @@ public class Jinete {
     @Column(name = "fecha_montura")
     private LocalDate fechaMontura;
 
-    public Jinete() {
-    }
+    @OneToMany(mappedBy = "jinete")
+    @JsonManagedReference
+    private List<Dragon> dragones;
 
-    public Jinete(Integer idJinete, String nombreJinete, Integer edadJinete, LocalDate fechaMontura) {
-        this.idJinete = idJinete;
-        this.nombreJinete = nombreJinete;
-        this.edadJinete = edadJinete;
-        this.fechaMontura = fechaMontura;
-    }
+    @OneToMany(mappedBy = "jinete")
+    @JsonManagedReference
+    private List<Aliado> aliados;
 
-    public Integer getIdJinete() {
-        return idJinete;
-    }
-
-    public void setIdJinete(Integer idJinete) {
-        this.idJinete = idJinete;
-    }
-
-    public String getNombreJinete() {
-        return nombreJinete;
-    }
-
-    public void setNombreJinete(String nombreJinete) {
-        this.nombreJinete = nombreJinete;
-    }
-
-    public Integer getEdadJinete() {
-        return edadJinete;
-    }
-
-    public void setEdadJinete(Integer edadJinete) {
-        this.edadJinete = edadJinete;
-    }
-
-    public LocalDate getFechaMontura() {
-        return fechaMontura;
-    }
-
-    public void setFechaMontura(LocalDate fechaMontura) {
-        this.fechaMontura = fechaMontura;
-    }
 }
