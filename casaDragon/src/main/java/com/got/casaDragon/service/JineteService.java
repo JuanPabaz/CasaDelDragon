@@ -1,7 +1,6 @@
 package com.got.casaDragon.service;
 
 import com.got.casaDragon.helpers.MensajeServicios;
-import com.got.casaDragon.models.Dragon;
 import com.got.casaDragon.models.Jinete;
 import com.got.casaDragon.repositories.JineteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +52,8 @@ public class JineteService {
                 jinete.setEdadJinete(jinete.getEdadJinete());
                 jinete.setFechaMontura(jinete.getFechaMontura());
                 jinete.setNombreJinete(jinete.getNombreJinete());
+                Integer idDragon = jineteNuevo.getDragones().get(0).getIdDragon();
+                jinete.setDragones(jinete.getDragones());
                 return jineteRepository.save(jinete);
             }else {
                 throw new Exception(MensajeServicios.JINETE_NO_ENCONTRADO.getMensaje());
