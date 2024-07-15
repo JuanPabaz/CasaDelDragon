@@ -6,6 +6,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface IMapAliado {
 
@@ -14,5 +16,7 @@ public interface IMapAliado {
             @Mapping(source = "ubicacion", target = "ubicacion")
     })
     AliadoDTO mapearAliado(Aliado aliado);
+
+    List<AliadoDTO> mapearListAliados(List<Aliado> aliadoList);
 
 }
