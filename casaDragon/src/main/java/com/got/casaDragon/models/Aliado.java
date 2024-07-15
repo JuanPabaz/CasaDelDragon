@@ -1,9 +1,18 @@
 package com.got.casaDragon.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "aliado")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Aliado {
 
     @Id
@@ -19,45 +28,8 @@ public class Aliado {
     @Column(name = "aporte")
     private Double aporte;
 
-    public Aliado() {
-    }
-
-    public Aliado(Integer idAliado, String nombreAliado, String ubicacion, Double aporte) {
-        this.idAliado = idAliado;
-        this.nombreAliado = nombreAliado;
-        this.ubicacion = ubicacion;
-        this.aporte = aporte;
-    }
-
-    public Integer getIdAliado() {
-        return idAliado;
-    }
-
-    public void setIdAliado(Integer idAliado) {
-        this.idAliado = idAliado;
-    }
-
-    public String getNombreAliado() {
-        return nombreAliado;
-    }
-
-    public void setNombreAliado(String nombreAliado) {
-        this.nombreAliado = nombreAliado;
-    }
-
-    public String getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
-    public Double getAporte() {
-        return aporte;
-    }
-
-    public void setAporte(Double aporte) {
-        this.aporte = aporte;
-    }
+    @ManyToOne
+    @JoinColumn(name = "idJinete",referencedColumnName = "id_jinete")
+    @JsonBackReference
+    private Jinete jinete;
 }
