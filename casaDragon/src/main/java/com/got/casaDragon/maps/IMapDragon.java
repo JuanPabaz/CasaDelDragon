@@ -6,6 +6,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface IMapDragon {
 
@@ -14,5 +16,11 @@ public interface IMapDragon {
             @Mapping(source = "edad", target = "edad")
     })
     DragonDTO mapearDragon(Dragon dragon);
+
+    @Mappings({
+            @Mapping(source = "nombreDragon",target = "nombreDragon"),
+            @Mapping(source = "edad", target = "edad")
+    })
+    List<DragonDTO> mapearListaDragones(List<Dragon> dragonList);
 
 }
