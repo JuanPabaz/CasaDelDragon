@@ -53,6 +53,7 @@ public class DragonService {
                 dragon.setAltura(dragonNuevo.getAltura());
                 dragon.setEdad(dragonNuevo.getEdad());
                 dragon.setNumeroVictorias(dragonNuevo.getNumeroVictorias());
+                dragon.setJinete(dragonNuevo.getJinete());
                 return dragonRepository.save(dragon);
             }else {
                 throw new Exception(MensajeServicios.DRAGON_NO_ENCONTRADO.getMensaje());
