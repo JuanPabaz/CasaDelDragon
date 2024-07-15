@@ -1,6 +1,8 @@
 package com.got.casaDragon.service;
 
+import com.got.casaDragon.DTO.DragonDTO;
 import com.got.casaDragon.helpers.MensajeServicios;
+import com.got.casaDragon.maps.IMapDragon;
 import com.got.casaDragon.models.Dragon;
 import com.got.casaDragon.repositories.DragonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,27 +17,30 @@ public class DragonService {
     @Autowired
     private DragonRepository dragonRepository;
 
-    public Dragon agregarDragon(Dragon dragon) throws Exception{
+    @Autowired
+    private IMapDragon mapDragon;
+
+    public DragonDTO agregarDragon(Dragon dragon) throws Exception{
         try {
-            return dragonRepository.save(dragon);
+            return mapDragon.mapearDragon(dragonRepository.save(dragon));
         }catch (Exception error){
             throw new Exception(error.getMessage());
         }
     }
 
-    public List<Dragon> buscarTodosDragones() throws Exception{
+    public List<DragonDTO> buscarTodosDragones() throws Exception{
         try {
-            return dragonRepository.findAll();
+            return mapDragon.mapearListaDragones(dragonRepository.findAll());
         }catch (Exception error){
             throw new Exception(error.getMessage());
         }
     }
 
-    public Dragon buscarDragonPorId(Integer id) throws Exception{
+    public DragonDTO buscarDragonPorId(Integer id) throws Exception{
         try {
             Optional<Dragon> dragonOptional = dragonRepository.findById(id);
             if (dragonOptional.isPresent()){
-                return dragonOptional.get();
+                return mapDragon.mapearDragon(dragonOptional.get());
             }else {
                 throw new Exception(MensajeServicios.DRAGON_NO_ENCONTRADO.getMensaje());
             }
@@ -44,7 +49,7 @@ public class DragonService {
         }
     }
 
-    public Dragon editarDragon(Integer id,Dragon dragonNuevo) throws Exception{
+    public DragonDTO editarDragon(Integer id,Dragon dragonNuevo) throws Exception{
         try {
             Optional<Dragon> dragonOptional = dragonRepository.findById(id);
             if (dragonOptional.isPresent()){
@@ -54,7 +59,7 @@ public class DragonService {
                 dragon.setEdad(dragonNuevo.getEdad());
                 dragon.setNumeroVictorias(dragonNuevo.getNumeroVictorias());
                 dragon.setJinete(dragonNuevo.getJinete());
-                return dragonRepository.save(dragon);
+                return mapDragon.mapearDragon(dragonRepository.save(dragon));
             }else {
                 throw new Exception(MensajeServicios.DRAGON_NO_ENCONTRADO.getMensaje());
             }
