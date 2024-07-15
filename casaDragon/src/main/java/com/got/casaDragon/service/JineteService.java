@@ -1,6 +1,8 @@
 package com.got.casaDragon.service;
 
+import com.got.casaDragon.DTO.JineteDTO;
 import com.got.casaDragon.helpers.MensajeServicios;
+import com.got.casaDragon.maps.IMapJinete;
 import com.got.casaDragon.models.Jinete;
 import com.got.casaDragon.repositories.JineteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,27 +17,30 @@ public class JineteService {
     @Autowired
     private JineteRepository jineteRepository;
 
-    public Jinete guardarJinete(Jinete jinete) throws Exception{
+    @Autowired
+    private IMapJinete mapJinete;
+
+    public JineteDTO guardarJinete(Jinete jinete) throws Exception{
         try {
-            return jineteRepository.save(jinete);
+            return mapJinete.mapearJinete(jineteRepository.save(jinete));
         }catch (Exception error){
             throw new Exception(error.getMessage());
         }
     }
 
-    public List<Jinete> buscarTodosJinetes() throws Exception{
+    public List<JineteDTO> buscarTodosJinetes() throws Exception{
         try {
-            return jineteRepository.findAll();
+            return mapJinete.mepearListaJinetes(jineteRepository.findAll());
         }catch (Exception error){
             throw new Exception(error.getMessage());
         }
     }
 
-    public Jinete buscarJinetePorId(Integer id) throws Exception{
+    public JineteDTO buscarJinetePorId(Integer id) throws Exception{
         try {
             Optional<Jinete> jineteOptional = jineteRepository.findById(id);
             if (jineteOptional.isPresent()){
-                return jineteOptional.get();
+                return mapJinete.mapearJinete(jineteOptional.get());
             }else {
                 throw new Exception(MensajeServicios.JINETE_NO_ENCONTRADO.getMensaje());
             }
@@ -44,7 +49,7 @@ public class JineteService {
         }
     }
 
-    public Jinete editarJinete(Integer id,Jinete jineteNuevo) throws Exception{
+    public JineteDTO editarJinete(Integer id,Jinete jineteNuevo) throws Exception{
         try {
             Optional<Jinete> jineteOptional = jineteRepository.findById(id);
             if (jineteOptional.isPresent()){
@@ -54,7 +59,7 @@ public class JineteService {
                 jinete.setNombreJinete(jinete.getNombreJinete());
                 Integer idDragon = jineteNuevo.getDragones().get(0).getIdDragon();
                 jinete.setDragones(jinete.getDragones());
-                return jineteRepository.save(jinete);
+                return mapJinete.mapearJinete(jineteRepository.save(jinete));
             }else {
                 throw new Exception(MensajeServicios.JINETE_NO_ENCONTRADO.getMensaje());
             }
