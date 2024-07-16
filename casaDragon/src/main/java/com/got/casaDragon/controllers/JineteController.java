@@ -1,7 +1,14 @@
 package com.got.casaDragon.controllers;
 
+import com.got.casaDragon.DTO.JineteDTO;
 import com.got.casaDragon.models.Jinete;
 import com.got.casaDragon.service.JineteService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +42,31 @@ public class JineteController {
     }
 
     @PostMapping()
+    @Operation(
+            summary = "Registra un jinete nuevo en la base de datos",
+            description = "Al llevar nombre, edad, fecha montura se registra con exito el jinete"
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "201",
+                            description = "Jinete registrado con exito en la BD",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = JineteDTO.class),
+                                    examples = @ExampleObject(value = "{\"nombreJinete\":\"Wisin\",\"edad\":\"20\"}")
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Error al registrar el Jinete",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = String.class),
+                                    examples = @ExampleObject(value = "{\"error\":\"Datos invalidos\"}")
+                            ))
+            }
+    )
     public ResponseEntity<?> guardarJinete(@RequestBody Jinete jinete){
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(jineteService.guardarJinete(jinete));
