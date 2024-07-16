@@ -2,6 +2,7 @@ package com.got.casaDragon.controllers;
 
 import com.got.casaDragon.models.Dragon;
 import com.got.casaDragon.service.DragonService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/dragon")
+@Tag(name = "Servicios Dragon",description = "Servicios asociados a la tabla dragon de la base de datos Dragones")
 public class DragonController {
 
     @Autowired
