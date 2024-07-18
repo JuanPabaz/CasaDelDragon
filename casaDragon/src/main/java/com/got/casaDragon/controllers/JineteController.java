@@ -63,7 +63,7 @@ public class JineteController {
                             content = @Content(
                                     mediaType = "application/json",
                                     schema = @Schema(implementation = String.class),
-                                    examples = @ExampleObject(value = "{\"error\":\"Datos invalidos\"}")
+                                    examples = @ExampleObject(value = "Datos invalidos")
                             ))
             }
     )
