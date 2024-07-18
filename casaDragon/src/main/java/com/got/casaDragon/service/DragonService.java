@@ -2,6 +2,7 @@ package com.got.casaDragon.service;
 
 import com.got.casaDragon.DTO.DragonDTO;
 import com.got.casaDragon.helpers.MensajeServicios;
+import com.got.casaDragon.helpers.validations.DragonValidations;
 import com.got.casaDragon.maps.IMapDragon;
 import com.got.casaDragon.models.Dragon;
 import com.got.casaDragon.repositories.DragonRepository;
@@ -20,8 +21,26 @@ public class DragonService {
     @Autowired
     private IMapDragon mapDragon;
 
+    @Autowired
+    private DragonValidations dragonValidations;
+
     public DragonDTO agregarDragon(Dragon dragon) throws Exception{
         try {
+            if (!dragonValidations.validarNombreDragon(dragon.getNombreDragon())){
+                throw new Exception("El nombre debe ser menor de 20 caracteres");
+            }
+
+            if (!dragonValidations.validarEdad(dragon.getEdad())){
+                throw new Exception("La edad tiene que ser mayor o igual a 0 y menor a 2000");
+            }
+
+            if (!dragonValidations.validarAltura(dragon.getAltura())){
+                throw new Exception("La altura tiene que ser positiva mayor que 0");
+            }
+
+            if (!dragonValidations.validarNumeroVictorias(dragon.getNumeroVictorias())){
+                throw new Exception("Las victorias tienen que ser positivas");
+            }
             return mapDragon.mapearDragon(dragonRepository.save(dragon));
         }catch (Exception error){
             throw new Exception(error.getMessage());
