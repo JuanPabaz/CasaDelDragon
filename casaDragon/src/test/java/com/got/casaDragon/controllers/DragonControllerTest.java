@@ -45,7 +45,17 @@ class DragonControllerTest {
         assertEquals(dragonDTO,response.getBody());
     }
 
+    @Test
     public void guardarDragonOcurreUnErrorDevuelveUnMensaje() throws Exception{
+        //Arrange
+        String mensajeError = "Revisa los nombres del dragon";
+        when(dragonService.agregarDragon(any(Dragon.class))).thenThrow(new Exception(mensajeError));
 
+        //Act
+        Dragon dragon = new Dragon();
+        ResponseEntity<?> response = dragonController.guardarDragon(dragon);
+
+        //Assert
+        assertEquals(HttpStatus.BAD_REQUEST,response.getStatusCode());
     }
 }
